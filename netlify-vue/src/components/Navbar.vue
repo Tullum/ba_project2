@@ -1,21 +1,16 @@
 <template>
   <nav>
-    <v-toolbar flat app>
-      <v-app-bar-nav-icon
-        class="grey--text"
-        @click="drawer = !drawer"
-      ></v-app-bar-nav-icon>
-      <v-toolbar-title class="text-uppercase grey--text">
-        <span class="font-weight-light">BIGSHEEP</span>
-        <span>Studio</span>
+    <v-toolbar clipped-right flat app color="#2b2b2b">
+      <v-toolbar-title >
+        <img src="img/icons/logoe_white.png" width="200" alt="" route="/" />
       </v-toolbar-title>
       <v-spacer></v-spacer>
-
+      <!--Dropdown menu-->
       <v-menu offset-y>
         <template v-slot:activator="{ on: menu }">
           <v-tooltip bottom>
             <template v-slot:activator="{ on: tooltip }">
-              <v-btn color="grey" v-on="{ ...menu }"
+              <v-btn flat color="orange" v-on="{ ...menu }"
                 ><span class="mdi mdi-account-outline"></span>
                 <span>Profile</span>
                 <span class="mdi mdi-arrow-down-drop-circle-outline"></span>
@@ -40,36 +35,43 @@
           </v-list-item>
         </v-list>
       </v-menu>
-
-      <!--Dropdown menu-->
-
-      <v-btn flat color="grey">
-        <span>Sign Out</span>
-        <span class="mdi mdi-logout"></span>
-      </v-btn>
     </v-toolbar>
-    <v-navigation-drawer v-model="drawer" app class="primary">
-      <!-- the drawer don't work without the "app" -->
+
+    <v-navigation-drawer
+      app
+      v-model="drawer"
+      :mini-variant.sync="mini"
+      permanent
+      overflow-y
+      clipped="clipped"
+    >
       <v-layout column align-center justify-center>
-        <v-flex class="mt-5">
-          <v-avatar size="100">
-            <img src="img/icons/profile1.png" alt="" />
-          </v-avatar>
-          <p class="white--text subheading mt-2">Baldur A. Sveinsson</p>
-        </v-flex>
+        <v-list-item>
+          <v-list-item-avatar size="50">
+            <v-img src="img/icons/profile1.png"></v-img>
+          </v-list-item-avatar>
+
+          <p class="black--text subheading mt-2">Baldur A. Sveinsson</p>
+
+          <v-btn color="orange" flat icon @click.stop="mini = !mini">
+            <span class="mdi mdi-arrow-left-drop-circle-outline"></span>
+          </v-btn>
+        </v-list-item>
+
         <v-flex class="mt-5 mb-6">
           <Popup />
         </v-flex>
       </v-layout>
-      <v-list>
+      <v-divider></v-divider>
+
+      <v-list dense>
         <v-list-item v-for="link in links" :key="link.text" :to="link.route">
           <v-list-item-action>
-            <v-icon class="white--text">{{ link.icon }}</v-icon>
+            <v-icon color="orange" flat>{{ link.icon }}</v-icon>
           </v-list-item-action>
+
           <v-list-item-component>
-            <v-list-item-title class="white--text">{{
-              link.text
-            }}</v-list-item-title>
+            <v-list-item-title>{{ link.text }}</v-list-item-title>
           </v-list-item-component>
         </v-list-item>
       </v-list>
@@ -84,7 +86,9 @@ export default {
   components: { Popup },
   data() {
     return {
-      drawer: false,
+      mini: true,
+      drawer: true,
+      clipped: true,
       items: [
         { title: "Click Me1" },
         { title: "Click Me2" },
@@ -112,7 +116,8 @@ export default {
           text: "Accounts",
           route: "/accounts"
         },
-        { icon: "mdi mdi-printer-settings", text: "Prints", route: "/prints" }
+        { icon: "mdi mdi-printer-settings", text: "Prints", route: "/prints" },
+        { icon: "mdi mdi-logout", text: "Sign Out", route: "/" }
       ]
     };
   }

@@ -5,7 +5,7 @@
         <template v-slot:activator="{ on: tooltip }">
           <v-btn flat color="orange" v-on="{ ...dialog }">
             <span small class="mdi mdi-plus-circle-outline"></span>
-            <span>Add new project</span>
+            <!--<span>Add project</span>-->
           </v-btn>
         </template>
       </v-tooltip>
