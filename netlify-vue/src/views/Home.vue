@@ -3,11 +3,11 @@
     <h1>Homepage</h1>
     <v-container class="my-10">
       <v-layout row class="mb-3">
-        <v-btn small flat color="grey" class="ma-1" @click="sortBy('title')">
+        <v-btn small color="#f76500" class="ma-1" @click="sortBy('title')">
           <span left small class="mdi mdi-folder-outline"></span>
           <span class="caption text-lowercase">By Project name</span>
         </v-btn>
-        <v-btn small flat color="grey" class="ma-1" @click="sortBy('status')">
+        <v-btn small color="#f76500" class="ma-1" @click="sortBy('status')">
           <span
             small
             flat
@@ -16,7 +16,7 @@
           <span class="caption text-lowercase">By Status</span>
         </v-btn>
       </v-layout>
-      <v-card flat v-for="project in projects" :key="project.title">
+      <v-card v-for="project in projects" :key="project.title">
         <v-layout row wrap :class="`pa-3 project ${project.status}`">
           <v-flex xs12 md6>
             <div class="caption grey--text">Project title</div>

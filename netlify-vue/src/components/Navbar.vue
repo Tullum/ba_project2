@@ -1,7 +1,7 @@
 <template>
   <nav>
-    <v-toolbar clipped-right flat app color="#2b2b2b">
-      <v-toolbar-title >
+    <v-app-bar clipped-right app color="#2b2b2b">
+      <v-toolbar-title>
         <img src="img/icons/logoe_white.png" width="200" alt="" route="/" />
       </v-toolbar-title>
       <v-spacer></v-spacer>
@@ -10,7 +10,7 @@
         <template v-slot:activator="{ on: menu }">
           <v-tooltip bottom>
             <template v-slot:activator="{ on: tooltip }">
-              <v-btn flat color="orange" v-on="{ ...menu }"
+              <v-btn color="#f76500" v-on="{ ...menu }"
                 ><span class="mdi mdi-account-outline"></span>
                 <span>Profile</span>
                 <span class="mdi mdi-arrow-down-drop-circle-outline"></span>
@@ -35,15 +35,16 @@
           </v-list-item>
         </v-list>
       </v-menu>
-    </v-toolbar>
+    </v-app-bar>
 
     <v-navigation-drawer
       app
       v-model="drawer"
       :mini-variant.sync="mini"
       permanent
-      overflow-y
-      clipped="clipped"
+      overflow
+      clipped-top
+      clipped-bottom
     >
       <v-layout column align-center justify-center>
         <v-list-item>
@@ -53,7 +54,7 @@
 
           <p class="black--text subheading mt-2">Baldur A. Sveinsson</p>
 
-          <v-btn color="orange" flat icon @click.stop="mini = !mini">
+          <v-btn color="#f76500" icon @click.stop="mini = !mini">
             <span class="mdi mdi-arrow-left-drop-circle-outline"></span>
           </v-btn>
         </v-list-item>
@@ -67,7 +68,7 @@
       <v-list dense>
         <v-list-item v-for="link in links" :key="link.text" :to="link.route">
           <v-list-item-action>
-            <v-icon color="orange" flat>{{ link.icon }}</v-icon>
+            <v-icon color="#f76500" flat>{{ link.icon }}</v-icon>
           </v-list-item-action>
 
           <v-list-item-component>
@@ -88,13 +89,6 @@ export default {
     return {
       mini: true,
       drawer: true,
-      clipped: true,
-      items: [
-        { title: "Click Me1" },
-        { title: "Click Me2" },
-        { title: "Click Me3" },
-        { title: "Click Me4" }
-      ],
       links: [
         {
           icon: "mdi mdi-home-circle-outline",

@@ -3,7 +3,7 @@
     <template v-slot:activator="{ on: dialog }">
       <v-tooltip bottom>
         <template v-slot:activator="{ on: tooltip }">
-          <v-btn flat color="orange" v-on="{ ...dialog }">
+          <v-btn color="#f76500" v-on="{ ...dialog }">
             <span small class="mdi mdi-plus-circle-outline"></span>
             <!--<span>Add project</span>-->
           </v-btn>
@@ -12,7 +12,7 @@
     </template>
     <v-card>
       <v-card-title>
-        <h2>Add a new project</h2>
+        <h2>Add new</h2>
       </v-card-title>
       <v-card-text>
         <v-form class="px-5" ref="form">
@@ -27,14 +27,13 @@
             :rules="nameRules"
           ></v-text-field>
           <v-text-field label="Time spent" v-model="time" :rules="inputRules">
-            <!--find a rule for numbers-->
           </v-text-field>
           <v-text-field
             label="Project status"
             v-model="status"
-            :rules="emailRules"
+            :rules="nameRules"
           ></v-text-field>
-          <v-btn flat color="orange" class="mx-0 mt-3" @click="submit">
+          <v-btn color="#f76500" class="mx-0 mt-3" @click="submit">
             Add project
           </v-btn>
         </v-form>
@@ -55,11 +54,11 @@ export default {
       nameRules: [
         v => !!v || "Name is required",
         v => (v && v.length <= 10) || "Maximum lenght is 10 characters"
-      ],
-      emailRules: [
+      ]
+      /*emailRules: [
         v => !!v || "E-mail is required",
         v => /.+@.+\..+/.test(v) || "E-mail must be valid"
-      ]
+      ]*/
     };
   },
   methods: {
