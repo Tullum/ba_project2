@@ -17,8 +17,8 @@
       <v-card-text>
         <v-form class="px-5" ref="form">
           <v-text-field
-            label="Name"
-            v-model="name"
+            label="Title"
+            v-model="title"
             :rules="nameRules"
           ></v-text-field>
           <v-text-field
@@ -43,11 +43,14 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "Popup",
   data() {
     return {
-      name: "",
+      id: "1",
+      title: "",
       person: "",
       time: "",
       status: "",
@@ -62,13 +65,27 @@ export default {
     };
   },
   methods: {
-    submit() {
-      if (this.$refs.form.validate()) {
+   async submit() {
+     await axios({
+                    method: "POST",
+                    url: "http://209.97.138.37:4122/v1/api/crm_project/graphql",
+                   data: {
+    query: `
+  mutation {
+ update_projects (
+   where: { id: },
+   set: { title: ${this.title},
+     status: ${this.status}
+}) @mysql {
+   status
+ }
+}
+      `}});
         // next comment is needed to make console.log working
         // eslint-disable-next-line no-console
-        console.log(this.name, this.person, this.time, this.status);
-      }
-    }
+        console.log(this.id,this.title, this.person, this.time, this.status);
+    
   }
+}
 };
 </script>

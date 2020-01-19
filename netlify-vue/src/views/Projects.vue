@@ -1,6 +1,6 @@
 <template>
   <div class="projects">
-    <h1 class="subheading greay--text">Project overview</h1>
+    <h1 class="subheading">Project overview</h1>
     <v-container class="my-10">
       <v-expansion-panels>
         <v-expansion-panel v-for="project in projects" :key="project.title">
@@ -9,7 +9,7 @@
           }}</v-expansion-panel-header>
           <v-expansion-panel-content class="px-4 grey--text">
             <div class="font-weight-bold">Time to spent {{ project.time }}</div>
-            <div>Contact Person: {{ project.person }}</div>
+            <div>Contact Person: {{ project.people.name }}</div>
             <div>Project status: {{ project.status }}</div>
             <div><Popup /></div>
           </v-expansion-panel-content>
@@ -20,6 +20,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 import Popup from "@/components/Popup.vue";
 export default {
   name: "projects",
@@ -53,6 +55,28 @@ export default {
         }
       ]
     };
+  },
+  async mounted() {
+                var result = await axios({
+                    method: "POST",
+                    url: "http://209.97.138.37:4122/v1/api/crm_project/graphql",
+                   data: {
+    query: `
+  query projects {
+  projects @mysql {
+    id
+    title
+    dueBy
+    status
+    people {
+      name
+    }
   }
+}
+      `
+                    }
+                });
+                this.projects = result.data.data.projects;
+            }
 };
 </script>

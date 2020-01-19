@@ -24,11 +24,11 @@
           </v-flex>
           <v-flex xs6 sm4 md2>
             <div class="caption grey--text">Person</div>
-            <div>{{ project.person }}</div>
+            <div>{{ project.people.name }}</div>
           </v-flex>
           <v-flex xs6 sm4 md2>
             <div class="caption grey--text">Due by</div>
-            <div>{{ project.time }}</div>
+            <div>{{ project.dueBy }}</div>
           </v-flex>
           <v-flex xs2 sm4 md2>
             <div>
@@ -47,13 +47,16 @@
 </template>
 
 <script>
+import axios from "axios";
 // @ is an alias to /src
 
 export default {
   name: "home",
   data() {
     return {
+      clients: [],
       projects: [
+      ]/*[
         {
           title: "Jem&Fix",
           person: "Bob Bobsen",
@@ -78,35 +81,57 @@ export default {
           time: "3 hours",
           status: "complete"
         }
-      ]
+      ]*/
     };
   },
   methods: {
     sortBy(prop) {
       this.projects.sort((a, b) => (a[prop] < b[prop] ? -1 : 1)); //it's 1 if needed to change order -1 if not
     }
+  },
+  async mounted() {
+                var result = await axios({
+                    method: "POST",
+                    url: "http://209.97.138.37:4122/v1/api/crm_project/graphql",
+                   data: {
+    query: `
+  query projects{
+  projects @mysql {
+    id
+    title
+    dueBy
+    people {
+      name
+    }
+    status
   }
-};
+}
+      `
+                    }
+                });
+                this.projects = result.data.data.projects;
+            }
+        };
 </script>
 
 <style>
-.project.complete {
+.project.Complete {
   border-left: 4px solid green;
 }
-.project.ongoing {
+.project.Ongoing {
   border-left: 4px solid orange;
 }
-.project.begin {
+.project.Begin {
   border-left: 4px solid tomato;
 }
 
-.v-chip.complete {
+.v-chip.Complete {
   background: rgb(0, 117, 0) !important;
 }
-.v-chip.ongoing {
+.v-chip.Ongoing {
   background: orange !important;
 }
-.v-chip.begin {
+.v-chip.Begin {
   background: #ff6347 !important;
 }
 </style>
