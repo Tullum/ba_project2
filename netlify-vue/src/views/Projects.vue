@@ -20,8 +20,6 @@
 </template>
 
 <script>
-import axios from "axios";
-
 import Popup from "@/components/Popup.vue";
 export default {
   name: "projects",
@@ -55,28 +53,6 @@ export default {
         }
       ]
     };
-  },
-  async mounted() {
-                var result = await axios({
-                    method: "POST",
-                    url: "http://209.97.138.37:4122/v1/api/crm_project/graphql",
-                   data: {
-    query: `
-  query projects {
-  projects @mysql {
-    id
-    title
-    dueBy
-    status
-    people {
-      name
-    }
   }
-}
-      `
-                    }
-                });
-                this.projects = result.data.data.projects;
-            }
 };
 </script>

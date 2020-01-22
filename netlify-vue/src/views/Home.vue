@@ -47,7 +47,6 @@
 </template>
 
 <script>
-import axios from "axios";
 // @ is an alias to /src
 
 export default {
@@ -56,7 +55,6 @@ export default {
     return {
       clients: [],
       projects: [
-      ]/*[
         {
           title: "Jem&Fix",
           person: "Bob Bobsen",
@@ -81,37 +79,15 @@ export default {
           time: "3 hours",
           status: "complete"
         }
-      ]*/
+      ]
     };
   },
   methods: {
     sortBy(prop) {
       this.projects.sort((a, b) => (a[prop] < b[prop] ? -1 : 1)); //it's 1 if needed to change order -1 if not
     }
-  },
-  async mounted() {
-                var result = await axios({
-                    method: "POST",
-                    url: "http://209.97.138.37:4122/v1/api/crm_project/graphql",
-                   data: {
-    query: `
-  query projects{
-  projects @mysql {
-    id
-    title
-    dueBy
-    people {
-      name
-    }
-    status
   }
-}
-      `
-                    }
-                });
-                this.projects = result.data.data.projects;
-            }
-        };
+};
 </script>
 
 <style>
