@@ -9,13 +9,11 @@
       <v-menu offset-y>
         <template v-slot:activator="{ on: menu }">
           <v-tooltip bottom>
-            <template v-slot:activator="{ on: tooltip }">
-              <v-btn color="#f76500" v-on="{ ...menu }"
-                ><span class="mdi mdi-account-outline"></span>
-                <span>Profile</span>
-                <span class="mdi mdi-arrow-down-drop-circle-outline"></span>
-              </v-btn>
-            </template>
+            <v-btn color="#f76500" v-on="{ ...menu }"
+              ><span class="mdi mdi-account-outline"></span>
+              <span>Profile</span>
+              <span class="mdi mdi-arrow-down-drop-circle-outline"></span>
+            </v-btn>
             <span>Im A ToolTip</span>
           </v-tooltip>
         </template>
@@ -55,7 +53,7 @@
           <p class="black--text subheading mt-2">Baldur A. Sveinsson</p>
 
           <v-btn color="#f76500" icon @click.stop="mini = !mini">
-            <span class="mdi mdi-arrow-left-drop-circle-outline"></span>
+            <span large class="mdi mdi-arrow-left-drop-circle-outline"></span>
           </v-btn>
         </v-list-item>
 
